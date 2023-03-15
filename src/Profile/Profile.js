@@ -5,6 +5,8 @@ import { NavLink } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
 import { format } from "date-fns";
 
+
+
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [fname, setFname] = useState("");
@@ -13,7 +15,8 @@ const Profile = () => {
   const [phone, setPhone] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setnewPassword] = useState("");
-
+  const [profilePic, setProfilePic] = useState("");
+  
   const NavBarUser = (
     <div className="container-xxl position-relative p-0">
       <nav
@@ -51,7 +54,8 @@ const Profile = () => {
                 className="nav-link dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
-                {fname} {lname}
+               <img src={`img/${profilePic}`} alt="Image" height="35" width="35" style={{  borderRadius: '50%',border: '2px solid #ccc',boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.2)',padding: '2px' }} /> {fname} {lname}  
+  
               </a>
               <div className="dropdown-menu m-0">
                 <a href="" className="dropdown-item">
@@ -161,6 +165,7 @@ const Profile = () => {
       setLname(user.lname);
       setPhone(user.phone);
       setBirthdate(format(new Date(user.birthdate), "yyyy-MM-dd"));
+      setProfilePic(user.profilePic);
     }
   }, [user]);
 
@@ -268,11 +273,12 @@ const Profile = () => {
                   value={birthdate}
                   onChange={(e) => setBirthdate(e.target.value)}
                 />
+                
               </div>
             </div>
             <br />
             <button className="btn btn-info" onClick={UpdateUser}>
-              Edit Profile
+              Edit Profile 
             </button>
             <div className="Container">
               <Toaster position="top-center" reverseOrder={false} />

@@ -12,8 +12,13 @@ const Register = () => {
   const [lname, setLname] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [phone, setPhone] = useState("");
+  
   const navigate = useNavigate();
-
+  const [profilePic, setProfilePic] = useState(null);
+  
+  const handleProfilePicChange = (event) => {
+    setProfilePic(event.target.files[0]);
+  };
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -26,7 +31,7 @@ const Register = () => {
       lname === "" ||
       birthdate === "" ||
       password === "" ||
-      phone === ""
+      phone === "" 
     ) {
       toast.error("Please fill all required fields");
       return;
@@ -41,17 +46,21 @@ const Register = () => {
       toast.error("Password should only contain letters or numbers");
       return;
     }
-      fetch("http://localhost:3001/users/signup", {
+    
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("fname", fname);
+    formData.append("lname", lname);
+    formData.append("birthdate", birthdate);
+    formData.append("phone", phone);
+    if (profilePic) {
+      formData.append("profilePic", profilePic, profilePic.name);
+    }
+    
+    fetch("http://localhost:3001/users/signup", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-        fname,
-        lname,
-        birthdate,
-        phone,
-      }),
+      body: formData,
     })
       .then((data) => {
         toast.success("registered successfully");
@@ -60,9 +69,12 @@ const Register = () => {
       .catch((error) => {
         toast.error(error.message);
       });
+  
   };
 
   return (
+    
+
     <div>
       <NavBar></NavBar>
     <div className="Container">
@@ -129,6 +141,24 @@ const Register = () => {
               name="email"
             />
           </div>
+          <div style={{ display: "flex", flexDirection: "column", }}  >
+  <label   className="details">Profile Picture:</label>
+  <div style={{ position: "relative" }}>
+    <input
+      type="file"
+      id="profile-pic"
+      accept="image/*"
+      onChange={handleProfilePicChange}
+      
+    />
+    <div style={{ backgroundColor: "#eee", width: "px", height: "0px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      
+    </div>
+  </div>
+</div>
+          
+          
+    
 
           <div className="input-box" style={{ position: "relative" }}>
             <label className="details">Password</label>
@@ -140,6 +170,8 @@ const Register = () => {
               id="password"
               name="password"
             />
+         
+
             <button
               type="button"
               className="btn btn-outline-secondary"
