@@ -63,6 +63,13 @@ export default function AddClub() {
               onChange={(e) => setLogo(e.target.value)}
             />
           </div>
+
+
+
+
+
+
+          
           <button type="submit" className="btn btn-primary">
             Add Club
           </button>
