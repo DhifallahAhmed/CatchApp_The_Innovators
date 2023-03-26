@@ -1,13 +1,13 @@
 import React from "react";
 import ViewClubs from "./VIiewClubs";
 
-
+import "../styles/ciewclubs"
 
 
 function ListeClubs(){
     return (
         <div>
-        <h1 className="heading">Clubs</h1>
+        <h1 className="heading"> Clubs</h1>
         {Clubs.map(club => ( 
      <ViewClubs
       key={club.id}

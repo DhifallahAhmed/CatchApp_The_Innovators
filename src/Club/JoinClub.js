@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import toast, { Toaster } from "react-hot-toast";
+import "../styles/viewclubs.css";
 
-const Join = () => {
+const JoinClub = () => {
 
-  
- 
+
     const [fname, setFname] = useState("");
     const [lname, setLname] = useState("");
     const [email, setEmail] = useState("");
@@ -15,7 +15,6 @@ const Join = () => {
     const [profilePic, setProfilePic] = useState(null);
 
 
-}
 const handleProfilePicChange = (event) => {
     setProfilePic(event.target.files[0]);
   };
@@ -30,12 +29,12 @@ const handleSubmit = async (e) => {
       email === "" ||
       birthdate === "" ||
       Niveau===""||
-      password === "" ||
+
       phone === "" || profilePic===""
     ) {
       toast.error("Please fill all required fields");
       return;
-    }}
+    }
 
 
     
@@ -51,7 +50,7 @@ const handleSubmit = async (e) => {
       formData.append("profilePic", profilePic, profilePic.name);
     }
 
-    await fetch("http://localhost:3001/joinclubs", {
+    await fetch("http://localhost:3003/joinclubs", {
       method: "POST",
       body: formData
     })
@@ -72,6 +71,8 @@ return(
         <div className="title">Welcome above us</div>
         <form onSubmit={handleSubmit}>
           <div className="users-details">
+
+
             <div className="input-box">
               <label className="details">FirstName</label>
               <input
@@ -95,6 +96,8 @@ return(
                 onChange={(e) => setLname(e.target.value)}
               />
              </div>
+
+
              <div className="input-box">
               <label className="details">
                 Email<ion-icon name="mail-outline"></ion-icon>
@@ -163,10 +166,13 @@ return(
                 <button type="submit" className="btn btn-info">
             Confirm
           </button>
+          
           </div>
           </form>
+        
         </div>
         
+         
 
-)
-export default AddClub;
+)}};
+export default JoinClub ;

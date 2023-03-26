@@ -14,7 +14,8 @@ import UpdateAdmin from "./Profile/UpdateAdmin";
 import AdminDash from "./AdminDash/AdminDash";
 import NotFound from "./components/NotFound";
 import AddClub from "./Club/AddClub";
-
+import ViewClubs from "./Club/VIiewClubs";
+import JoinClub from "./Club/JoinClub";
 function App() {
   const [loaded, setLoaded] = useState(false);
 
@@ -40,6 +41,8 @@ function App() {
             <Route path="/users" element={<Users />}></Route>
             <Route path="/Dash" element={<AdminDash />}></Route>
             <Route path="/AddClub" element={<AddClub/>}></Route>
+            <Route path="/ViewClubs" element={<ViewClubs/>}></Route>
+            <Route path="/joinclubs" element={<JoinClub/>}></Route>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
           {/* <About/> */}
