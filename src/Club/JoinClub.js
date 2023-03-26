@@ -50,7 +50,7 @@ const handleSubmit = async (e) => {
       formData.append("profilePic", profilePic, profilePic.name);
     }
 
-    await fetch("http://localhost:3003/joinclubs", {
+    await fetch(`http://localhost:3003/joinclub`, {
       method: "POST",
       body: formData
     })

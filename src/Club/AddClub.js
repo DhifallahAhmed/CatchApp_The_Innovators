@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Sidebar from "../AdminDash/Sidebar";
 import styled from "styled-components";
-
-
+import toast, { Toaster } from "react-hot-toast";
+import "../styles/Addclub.css";
 
 const MainContainer = styled.div`
   display: flex;
@@ -19,12 +19,19 @@ export default function AddClub() {
   const [description, setDescription] = useState("");
   const [logo, setLogo] = useState("");
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit =  async (event) => {
+    event.preventDefault();
     if (!name || !description || !logo) {
-      alert("Please fill in all fields");
+     toast.error("Please fill in all fields");
       return;
     }
+
+    const response = await fetch("http://localhost:3001/clubs/add",{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, description ,logo }),
+    });
+   
   };
   return (
     <div id="page-top">
@@ -32,10 +39,16 @@ export default function AddClub() {
       <Sidebar />
       <div id="content-wrapper" className="d-flex flex-column">
       <div id="content">
+      <h2>ADD Clubs</h2>
         <MainContainer>
+       
+      
         <form className="add-club-form" onSubmit={onSubmit}>
+          
+        <div className="details">
           <div className="form-group">
-            <label htmlFor="name">Name:</label>
+      
+            <label htmlFor="name">Name</label>
             <input
               type="text"
               id="name"
@@ -45,7 +58,7 @@ export default function AddClub() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="description">Description:</label>
+            <label htmlFor="description">Description</label>
             <textarea
               id="description"
               placeholder="Enter club description"
@@ -54,7 +67,7 @@ export default function AddClub() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="logoUrl">Logo URL:</label>
+            <label htmlFor="logoUrl">Logo URL</label>
             <input
               type="text"
               id="logoUrl"
@@ -63,21 +76,29 @@ export default function AddClub() {
               onChange={(e) => setLogo(e.target.value)}
             />
           </div>
-
-
+        
+          <button type="submit" className="btn btn-primary">
+            Add Club
+          </button>
+          </div>
+        </form>
+        
+    
 
 
 
 
           
-          <button type="submit" className="btn btn-primary">
-            Add Club
-          </button>
-        </form>
+    
+          
+       
+        
         </MainContainer>
         </div>
+        
         </div>
       </div>
     </div>
+    
   );
 }
